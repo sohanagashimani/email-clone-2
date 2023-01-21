@@ -9,23 +9,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Configure Git
-      run: |
-        git config --global user.email "sohanagashimanii@gmail.com"
-        git config --global user.name "sohanagashimani"
-    - name: Install dependencies
-      run: npm ci
-    - name: Build the app
-      run: npm run build
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
-      with:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build
-        CLEAN: true
-    env:
-      REPO_NAME: sohanagashimani/email-clone-2
-      REPO_OWNER: sohanagashimani
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Build the app
+        run: npm run build
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
+          CLEAN: true
