@@ -11,6 +11,7 @@ import {
 import { Spinner, When } from "../../@components";
 import { EmailDetails, EmailListItem, Header } from "./components";
 import { useFilter, useFilteredEmails } from "../../@hooks";
+import { Empty } from "antd";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
@@ -44,7 +45,7 @@ export default () => {
         </div>
       </When>
       <When isTrue={!isFetching}>
-        <div className="flex flex-col px-6 py-4">
+        <div className="flex flex-col px-6 py-4 h-screen">
           <Header
             {...{
               filter,
@@ -54,57 +55,64 @@ export default () => {
               setSelectedEmail,
             }}
           />
-          <div className="flex text-[#636363]">
-            <div
-              className={`${
-                showEmailDetails
-                  ? "w-2/6 h-screen overflow-y-scroll pr-6"
-                  : "w-full h-full"
-              } 
-               `}
-            >
-              {filteredEmails?.map((email) => (
-                <EmailListItem
-                  {...{
-                    email,
-                    setSelectedEmail,
-                    dispatch,
-                    selectedEmail,
-                    setShowEmailDetails,
-                    filter,
-                  }}
-                />
-              ))}
+          <When isTrue={filteredEmails.length === 0}>
+            <div className="flex items-center justify-center h-full">
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
             </div>
-            <When isTrue={showEmailDetails}>
-              <When isTrue={isFetchingDetails}>
-                <div className="w-4/6 flex items-center justify-center">
-                  <div className="flex flex-col">
-                    <Spinner
-                      loadingColor={"#E54065"}
-                      spinning={isFetchingDetails}
-                    />
-                  </div>
-                </div>
-              </When>
-              <When isTrue={!isFetchingDetails}>
-                <div className="w-4/6 h-max">
-                  <EmailDetails
+          </When>
+          <When isTrue={filteredEmails.length > 0}>
+            <div className="flex text-[#636363]">
+              <div
+                className={`${
+                  showEmailDetails
+                    ? "w-2/6 h-screen overflow-y-scroll pr-6"
+                    : "w-full h-full"
+                } 
+               `}
+              >
+                {filteredEmails?.map((email) => (
+                  <EmailListItem
                     {...{
+                      email,
+                      setSelectedEmail,
+                      dispatch,
                       selectedEmail,
-                      htmlFrom,
                       setShowEmailDetails,
                       filter,
-                      showEmailDetails,
-                      toggleFavoriteEmail,
-                      dispatch,
-                      isFetchingDetails,
                     }}
                   />
-                </div>
+                ))}
+              </div>
+              <When isTrue={showEmailDetails}>
+                <When isTrue={isFetchingDetails}>
+                  <div className="w-4/6 flex items-center justify-center">
+                    <div className="flex flex-col">
+                      <Spinner
+                        loadingColor={"#E54065"}
+                        spinning={isFetchingDetails}
+                      />
+                    </div>
+                  </div>
+                </When>
+                <When isTrue={!isFetchingDetails}>
+                  <div className="w-4/6 h-max">
+                    <EmailDetails
+                      {...{
+                        selectedEmail,
+                        htmlFrom,
+                        setShowEmailDetails,
+                        filter,
+                        showEmailDetails,
+                        toggleFavoriteEmail,
+                        dispatch,
+                        isFetchingDetails,
+                      }}
+                    />
+                  </div>
+                </When>
               </When>
-            </When>
-          </div>
+            </div>
+          </When>
         </div>
       </When>
     </>
