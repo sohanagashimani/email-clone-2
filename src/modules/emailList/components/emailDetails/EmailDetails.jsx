@@ -42,7 +42,7 @@ const EmailDetails = ({
               : "Mark as Favorite"}
           </button>
         </div>
-        <p className="text-sm text-gray-600">{htmlFrom(selectedEmail?.body)}</p>
+        <p className="text-sm">{htmlFrom(selectedEmail?.body)}</p>
       </section>
     </div>
   );

@@ -16,7 +16,7 @@ const EmailListItem = ({
         email.id === selectedEmail?.id
           ? "border-[#E54065] "
           : "border-[#cfd2dc]"
-      } text-[#636363] ${
+      }  ${
         filter.showUnreadEmails
           ? email.isRead
             ? "bg-[#f2f2f2]"
@@ -33,7 +33,9 @@ const EmailListItem = ({
         <section className="min-w-0">
           <p className="text-sm leading-relaxed">
             From:{" "}
-            <span className="font-medium capitalize mr-1">{email.from.name}</span>
+            <span className="font-medium capitalize mr-1">
+              {email.from.name}
+            </span>
             <span className="font-extrabold font-mono">{email.from.email}</span>
           </p>
           <p className="text-sm leading-relaxed">
