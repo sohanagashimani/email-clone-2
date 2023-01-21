@@ -1,5 +1,5 @@
 import React from "react";
-import { UserIcon } from "../../components";
+import { UserIcon } from "../../../../@components";
 
 const EmailListItem = ({
   email,
@@ -32,10 +32,12 @@ const EmailListItem = ({
         <UserIcon email={email} />
         <section className="min-w-0">
           <p className="text-sm leading-relaxed">
-            From: <span className=" font-bold"> {email.from.email}</span>{" "}
+            From:{" "}
+            <span className="font-medium capitalize mr-1">{email.from.name}</span>
+            <span className="font-extrabold font-mono">{email.from.email}</span>
           </p>
           <p className="text-sm leading-relaxed">
-            Subject: <span className=" font-bold"> {email.subject}</span>
+            Subject: <span className=" font-medium"> {email.subject}</span>
           </p>
           <p className="text-sm text-gray-600 truncate leading-loose">
             {email.short_description}

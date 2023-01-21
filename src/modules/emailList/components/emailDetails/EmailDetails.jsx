@@ -1,5 +1,5 @@
 import React from "react";
-import { UserIcon } from "../../components";
+import { UserIcon } from "../../../../@components";
 
 const EmailDetails = ({
   selectedEmail,
@@ -11,12 +11,12 @@ const EmailDetails = ({
   toggleFavoriteEmail,
 }) => {
   return (
-    <div className=" bg-white rounded-md p-5 my-6 ml-6 flex space-x-3">
+    <div className=" bg-white rounded-md px-4 pr-14 py-5 my-6 ml-6 flex space-x-3">
       <UserIcon email={selectedEmail} />
 
       <section className="flex flex-col space-y-8">
         <div className="flex justify-between">
-          <div className="flex flex-col">
+          <div className="flex flex-col space-y-2">
             <p className="text-lg font-medium">{selectedEmail?.subject}</p>
             <p className="text-xs text-gray-600 leading-loose">
               {new Date(selectedEmail.date).toLocaleDateString()}
