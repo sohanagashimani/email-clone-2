@@ -1,4 +1,5 @@
 import React from "react";
+import { UserIcon } from "../../components";
 
 const EmailDetails = ({
   selectedEmail,
@@ -10,24 +11,40 @@ const EmailDetails = ({
   toggleFavoriteEmail,
 }) => {
   return (
-      <div className=" bg-white rounded-md p-5 my-6 mx-4">
-        <p className="text-lg font-medium">{selectedEmail?.subject}</p>
-        <p className="text-lg font-medium">From: {selectedEmail?.from.email}</p>
+    <div className=" bg-white rounded-md p-5 my-6 mx-4 flex space-x-3">
+      <UserIcon email={selectedEmail} />
+
+      <section className="flex flex-col space-y-8">
+        <div className="flex justify-between">
+          <div className="flex flex-col">
+            <p className="text-lg font-medium">{selectedEmail?.subject}</p>
+            <p className="text-xs text-gray-600 leading-loose">
+              {new Date(selectedEmail.date).toLocaleDateString()}
+              <span className="ml-2">
+                {new Date(selectedEmail.date).toLocaleTimeString("en-US", {
+                  hour: "numeric",
+                  minute: "numeric",
+                })}
+              </span>
+            </p>
+          </div>
+          <button
+            className="bg-[#e54065] text-white text-sm h-8 w-auto px-3 rounded-full"
+            onClick={() => {
+              setShowEmailDetails(
+                filter.showFavorites ? false : showEmailDetails
+              );
+              dispatch(toggleFavoriteEmail(selectedEmail));
+            }}
+          >
+            {selectedEmail?.isFavorite
+              ? "Unmark as Favorite"
+              : "Mark as Favorite"}
+          </button>
+        </div>
         <p className="text-sm text-gray-600">{htmlFrom(selectedEmail?.body)}</p>
-        <button
-          className="bg-blue-500 text-white px-2 py-1 rounded-md"
-          onClick={() => {
-            setShowEmailDetails(
-              filter.showFavorites ? false : showEmailDetails
-            );
-            dispatch(toggleFavoriteEmail(selectedEmail));
-          }}
-        >
-          {selectedEmail?.isFavorite
-            ? "Unmark as Favorite"
-            : "Mark as Favorite"}
-        </button>
-      </div>
+      </section>
+    </div>
   );
 };
 

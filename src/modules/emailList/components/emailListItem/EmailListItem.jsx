@@ -1,4 +1,5 @@
 import React from "react";
+import { UserIcon } from "../../components";
 
 const EmailListItem = ({
   email,
@@ -28,9 +29,7 @@ const EmailListItem = ({
       }}
     >
       <div className="flex items-start">
-        <div className="w-11 h-11 text-center flex justify-center items-center rounded-full bg-[#E54065] text-white mx-3 p-5 text-xl ">
-          <p>{email.from.email.charAt(0).toUpperCase()}</p>
-        </div>
+        <UserIcon email={email} />
         <section className="min-w-0">
           <p className="text-sm leading-relaxed">
             From: <span className=" font-bold"> {email.from.email}</span>{" "}
@@ -43,7 +42,13 @@ const EmailListItem = ({
           </p>
           <p className="text-xs text-gray-600 leading-loose">
             {new Date(email.date).toLocaleDateString()}
-            <span className="ml-1"> {new Date(email.date).toLocaleTimeString('en-US',{hour:"numeric",minute:"numeric"})}</span>
+            <span className="ml-1">
+              {" "}
+              {new Date(email.date).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+              })}
+            </span>
             <span className="ml-7 font-bold text-[#e54065]">
               {email.isFavorite ? "Favorite" : null}
             </span>
