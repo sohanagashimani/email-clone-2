@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/email-clone-2/static/css/main.0c55b780.css",
+    "main.js": "/email-clone-2/static/js/main.442ef4b3.js",
+    "index.html": "/email-clone-2/index.html",
+    "main.0c55b780.css.map": "/email-clone-2/static/css/main.0c55b780.css.map",
+    "main.442ef4b3.js.map": "/email-clone-2/static/js/main.442ef4b3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0c55b780.css",
+    "static/js/main.442ef4b3.js"
+  ]
+}
