@@ -1,0 +1,57 @@
+import React from "react";
+
+const EmailListItem = ({
+  email,
+  setSelectedEmail,
+  dispatch,
+  selectedEmail,
+  setShowEmailDetails,
+  filter,
+}) => {
+  return (
+    <div
+      key={email.id}
+      className={`p-3 my-6 mx-4 rounded-lg border border-[#cfd2dc] ${
+        email.id === selectedEmail?.id
+          ? "border-[#E54065] "
+          : "border-[#cfd2dc]"
+      } text-[#636363] ${
+        filter.showUnreadEmails
+          ? email.isRead
+            ? "bg-[#f2f2f2]"
+            : "bg-white"
+          : "bg-white"
+      } cursor-pointer`}
+      onClick={() => {
+        dispatch(setSelectedEmail(email));
+        setShowEmailDetails(true);
+      }}
+    >
+      <div className="flex items-start">
+        <div className="w-11 h-11 text-center flex justify-center items-center rounded-full bg-[#E54065] text-white mx-3 p-5 text-xl ">
+          <p>{email.from.email.charAt(0).toUpperCase()}</p>
+        </div>
+        <section className="min-w-0">
+          <p className="text-sm leading-relaxed">
+            From: <span className=" font-bold"> {email.from.email}</span>{" "}
+          </p>
+          <p className="text-sm leading-relaxed">
+            Subject: <span className=" font-bold"> {email.subject}</span>
+          </p>
+          <p className="text-sm text-gray-600 truncate leading-loose">
+            {email.short_description}
+          </p>
+          <p className="text-xs text-gray-600 leading-loose">
+            {new Date(email.date).toLocaleDateString()}
+            <span className="ml-1"> {new Date(email.date).toLocaleTimeString('en-US',{hour:"numeric",minute:"numeric"})}</span>
+            <span className="ml-7 font-bold text-[#e54065]">
+              {email.isFavorite ? "Favorite" : null}
+            </span>
+          </p>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default EmailListItem;
