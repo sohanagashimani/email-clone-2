@@ -12,7 +12,7 @@ const EmailListItem = ({
   return (
     <div
       key={email.id}
-      className={`p-3 my-6 mx-4 rounded-lg border border-[#cfd2dc] ${
+      className={`p-3 my-6 rounded-lg border border-[#cfd2dc] ${
         email.id === selectedEmail?.id
           ? "border-[#E54065] "
           : "border-[#cfd2dc]"

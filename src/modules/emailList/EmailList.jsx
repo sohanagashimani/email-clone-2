@@ -22,7 +22,7 @@ export default () => {
   useEffect(() => {
     dispatch(fetchEmailList());
   }, [dispatch]);
-  
+
   const htmlFrom = (htmlString) => {
     const cleanHtmlString = DOMPurify.sanitize(htmlString, {
       USE_PROFILES: { html: true },
@@ -30,7 +30,7 @@ export default () => {
     const html = parse(cleanHtmlString);
     return html;
   };
-  
+
   const { filter, handleFilterChange } = useFilter();
   const filteredEmails = useFilteredEmails(emailList, filter);
 
@@ -44,7 +44,7 @@ export default () => {
         </div>
       </When>
       <When isTrue={!isFetching}>
-        <div className="flex flex-col">
+        <div className="flex flex-col px-6 py-4">
           <Header
             {...{
               filter,
@@ -56,9 +56,12 @@ export default () => {
           />
           <div className="flex">
             <div
-              className={`${showEmailDetails ? "w-2/6" : "w-full"} ${
-                showEmailDetails ? "h-screen overflow-y-scroll" : "h-full"
-              } p-3`}
+              className={`${
+                showEmailDetails
+                  ? "w-2/6 h-screen overflow-y-scroll pr-6"
+                  : "w-full h-full"
+              } 
+               `}
             >
               {filteredEmails?.map((email) => (
                 <EmailListItem
@@ -82,7 +85,7 @@ export default () => {
                 </div>
               </When>
               <When isTrue={!isFetchingDetails}>
-                <div className="p-3 w-4/6 h-max">
+                <div className="w-4/6 h-max">
                   <EmailDetails
                     {...{
                       selectedEmail,

@@ -11,7 +11,7 @@ const EmailDetails = ({
   toggleFavoriteEmail,
 }) => {
   return (
-    <div className=" bg-white rounded-md p-5 my-6 mx-4 flex space-x-3">
+    <div className=" bg-white rounded-md p-5 my-6 ml-6 flex space-x-3">
       <UserIcon email={selectedEmail} />
 
       <section className="flex flex-col space-y-8">

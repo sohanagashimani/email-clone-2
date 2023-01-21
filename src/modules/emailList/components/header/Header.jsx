@@ -1,3 +1,5 @@
+import { FilterTab } from "../../../../@components";
+
 const Header = ({
   filter,
   setShowEmailDetails,
@@ -6,43 +8,35 @@ const Header = ({
   dispatch,
 }) => {
   return (
-    <nav className="flex justify-center bg-gray-800 text-white p-4 ">
-      <button
+    <nav className="flex items-center gap-4 py-2 font-normal">
+      <p>Filter by: </p>
+      <FilterTab
+        text="Unread"
+        isActive={filter.showUnreadEmails}
         onClick={() => {
           handleFilterChange("showUnreadEmails");
           setShowEmailDetails(false);
           dispatch(setSelectedEmail(null));
         }}
-        className={`mx-2 ${
-          filter.showUnreadEmails ? "bg-blue-500" : "bg-gray-200"
-        } p-2 rounded-md text-white cursor-pointer`}
-      >
-        Unread
-      </button>
-      <button
+      />
+      <FilterTab
+        text="Read"
+        isActive={filter.showReadEmails}
         onClick={() => {
           handleFilterChange("showReadEmails");
-          dispatch(setSelectedEmail(null));
           setShowEmailDetails(false);
+          dispatch(setSelectedEmail(null));
         }}
-        className={`mx-2 ${
-          filter.showReadEmails ? "bg-blue-500" : "bg-gray-200"
-        } p-2 rounded-md text-white cursor-pointer`}
-      >
-        Read
-      </button>
-      <button
+      />
+      <FilterTab
+        text="Favorites"
+        isActive={filter.showFavorites}
         onClick={() => {
-          setShowEmailDetails(false);
           handleFilterChange("showFavorites");
+          setShowEmailDetails(false);
           dispatch(setSelectedEmail(null));
         }}
-        className={`mx-2 ${
-          filter.showFavorites ? "bg-blue-500" : "bg-gray-200"
-        } p-2 rounded-md text-white cursor-pointer`}
-      >
-        Favorites
-      </button>
+      />
     </nav>
   );
 };
