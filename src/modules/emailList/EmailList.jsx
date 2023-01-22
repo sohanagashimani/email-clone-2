@@ -41,7 +41,7 @@ export default () => {
       <When isTrue={isFetching}>
         <div className="h-screen w-screen flex flex-row items-center justify-center">
           <div className="flex flex-col">
-            <Spinner loadingColor={"#E54065"} spinning={isFetching} />
+            <Spinner spinning={isFetching} />
           </div>
         </div>
       </When>
@@ -88,10 +88,7 @@ export default () => {
                 <When isTrue={isFetchingDetails}>
                   <div className="w-4/6 flex items-center justify-center">
                     <div className="flex flex-col">
-                      <Spinner
-                        loadingColor={"#E54065"}
-                        spinning={isFetchingDetails}
-                      />
+                      <Spinner spinning={isFetchingDetails} size={30} />
                     </div>
                   </div>
                 </When>
