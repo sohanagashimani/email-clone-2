@@ -12,6 +12,7 @@ import { Spinner, When } from "../../@components";
 import { EmailDetails, EmailListItem, Header } from "./components";
 import { useFilter, useFilteredEmails } from "../../@hooks";
 import { Empty } from "antd";
+import { isEmpty } from "ramda";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
@@ -55,12 +56,12 @@ export default () => {
               setSelectedEmail,
             }}
           />
-          <When isTrue={filteredEmails.length === 0}>
+          <When isTrue={isEmpty(filteredEmails)}>
             <div className="flex items-center justify-center h-full">
               <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
             </div>
           </When>
-          <When isTrue={filteredEmails.length > 0}>
+          <When isTrue={!isEmpty(filteredEmails)}>
             <div className="flex text-[#636363]">
               <div
                 className={`${
