@@ -19,15 +19,31 @@ export const setSelectedEmail = (email) => {
           email,
         });
       } else {
-        const response = await fetch(
-          `https://flipkart-email-mock.now.sh/?id=${email.id}`
-        );
-        const { body } = await response.json();
-        email.body = body;
-        dispatch({
-          type: SET_SELECTED_EMAIL_RESPONSE,
-          email,
-        });
+        // Check if email details is already stored in sessionStorage
+        let emailDetails = sessionStorage.getItem(`emailDetails-${email.id}`);
+        if (emailDetails) {
+          // If email details is stored, parse it to JSON and dispatch
+          emailDetails = JSON.parse(emailDetails);
+          dispatch({
+            type: SET_SELECTED_EMAIL_RESPONSE,
+            email: emailDetails,
+          });
+        } else {
+          const response = await fetch(
+            `https://flipkart-email-mock.now.sh/?id=${email.id}`
+          );
+          const { body } = await response.json();
+          email.body = body;
+          // Store email details in sessionStorage
+          sessionStorage.setItem(
+            `emailDetails-${email.id}`,
+            JSON.stringify(email)
+          );
+          dispatch({
+            type: SET_SELECTED_EMAIL_RESPONSE,
+            email,
+          });
+        }
       }
     } catch (error) {
       console.log(error);
@@ -41,12 +57,26 @@ export function fetchEmailList() {
       dispatch({
         type: FETCH_EMAIL_LIST_REQUEST,
       });
-      const response = await fetch("https://flipkart-email-mock.now.sh/");
-      const { list } = await response.json();
-      dispatch({
-        type: FETCH_EMAIL_LIST_RESPONSE,
-        emailList: list,
-      });
+      // Check if email list is already stored in sessionStorage
+      let emailList = sessionStorage.getItem("emailList");
+      if (emailList) {
+        // If email list is stored, parse it to JSON and dispatch
+        emailList = JSON.parse(emailList);
+        dispatch({
+          type: FETCH_EMAIL_LIST_RESPONSE,
+          emailList,
+        });
+      } else {
+        // If email list is not stored, fetch from API
+        const response = await fetch("https://flipkart-email-mock.now.sh/");
+        const { list } = await response.json();
+        // Store email list in sessionStorage
+        sessionStorage.setItem("emailList", JSON.stringify(list));
+        dispatch({
+          type: FETCH_EMAIL_LIST_RESPONSE,
+          emailList: list,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
