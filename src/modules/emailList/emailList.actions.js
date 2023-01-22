@@ -84,6 +84,13 @@ export function fetchEmailList() {
 }
 
 export function toggleFavoriteEmail(email) {
+  sessionStorage.setItem(
+    `emailDetails-${email.id}`,
+    JSON.stringify({
+      ...email,
+      isFavorite: !email.isFavorite,
+    })
+  );
   return {
     type: TOGGLE_FAVORITE_EMAIL,
     email,
