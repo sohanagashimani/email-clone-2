@@ -13,6 +13,7 @@ import { EmailDetails, EmailListItem, Header } from "./components";
 import { useFilter, useFilteredEmails } from "../../@hooks";
 import { Empty } from "antd";
 import { isEmpty } from "ramda";
+import { FETCH_EMAIL_LIST_RESPONSE } from "./emailList.actionTypes";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
@@ -21,8 +22,22 @@ export default () => {
     useSelector((state) => state);
   const dispatch = useDispatch();
 
+  const persistedState = localStorage.getItem("emailList");
   useEffect(() => {
-    dispatch(fetchEmailList());
+    if (persistedState === null) {
+      let ignore = false;
+      if (!ignore) dispatch(fetchEmailList());
+      return () => {
+        ignore = true;
+      };
+    } else {
+      const emailList = JSON.parse(persistedState);
+      dispatch({
+        type: FETCH_EMAIL_LIST_RESPONSE,
+        emailList,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const htmlFrom = (htmlString) => {
@@ -73,6 +88,7 @@ export default () => {
               >
                 {filteredEmails?.map((email) => (
                   <EmailListItem
+                    key={email.id}
                     {...{
                       email,
                       setSelectedEmail,

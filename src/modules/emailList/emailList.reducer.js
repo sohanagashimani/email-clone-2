@@ -1,4 +1,5 @@
 import { isNil } from "ramda";
+import { updateEmailList } from "../../@utils";
 import {
   FETCH_EMAIL_LIST_REQUEST,
   FETCH_EMAIL_LIST_RESPONSE,
@@ -34,34 +35,32 @@ function rootReducer(state = initialState, action) {
       };
 
     case SET_SELECTED_EMAIL_RESPONSE:
-      if (isNil(action.email))
+      if (isNil(action.email)) {
         return {
           ...state,
           selectedEmail: action.email,
           isFetchingDetails: false,
         };
+      }
+      return updateEmailList(
+        state,
+        action.email,
+        "isRead",
+        true,
+        false,
+        state.isFetching
+      );
 
-      return {
-        ...state,
-        selectedEmail: action.email,
-        emailList: state.emailList.map((email) =>
-          email.id === action.email.id ? { ...email, isRead: true } : email
-        ),
-        isFetchingDetails: false,
-      };
     case TOGGLE_FAVORITE_EMAIL:
-      return {
-        ...state,
-        selectedEmail: {
-          ...state.selectedEmail,
-          isFavorite: !state.selectedEmail.isFavorite,
-        },
-        emailList: state.emailList.map((email) =>
-          email.id === action.email.id
-            ? { ...email, isFavorite: !email.isFavorite }
-            : email
-        ),
-      };
+      return updateEmailList(
+        state,
+        action.email,
+        "isFavorite",
+        !action.email.isFavorite,
+        state.isFetchingDetails,
+        state.isFetching
+      );
+
     default:
       return state;
   }

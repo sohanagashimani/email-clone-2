@@ -19,8 +19,8 @@ export const setSelectedEmail = (email) => {
           email,
         });
       } else {
-        // Check if email details is already stored in sessionStorage
-        let emailDetails = sessionStorage.getItem(`emailDetails-${email.id}`);
+        // Check if email details is already stored in localStorage
+        let emailDetails = localStorage.getItem(`emailDetails-${email.id}`);
         if (emailDetails) {
           // If email details is stored, parse it to JSON and dispatch
           emailDetails = JSON.parse(emailDetails);
@@ -34,8 +34,8 @@ export const setSelectedEmail = (email) => {
           );
           const { body } = await response.json();
           email.body = body;
-          // Store email details in sessionStorage
-          sessionStorage.setItem(
+          // Store email details in localStorage
+          localStorage.setItem(
             `emailDetails-${email.id}`,
             JSON.stringify(email)
           );
@@ -57,26 +57,12 @@ export function fetchEmailList() {
       dispatch({
         type: FETCH_EMAIL_LIST_REQUEST,
       });
-      // Check if email list is already stored in sessionStorage
-      let emailList = sessionStorage.getItem("emailList");
-      if (emailList) {
-        // If email list is stored, parse it to JSON and dispatch
-        emailList = JSON.parse(emailList);
-        dispatch({
-          type: FETCH_EMAIL_LIST_RESPONSE,
-          emailList,
-        });
-      } else {
-        // If email list is not stored, fetch from API
-        const response = await fetch("https://flipkart-email-mock.now.sh/");
-        const { list } = await response.json();
-        // Store email list in sessionStorage
-        sessionStorage.setItem("emailList", JSON.stringify(list));
-        dispatch({
-          type: FETCH_EMAIL_LIST_RESPONSE,
-          emailList: list,
-        });
-      }
+      const response = await fetch("https://flipkart-email-mock.now.sh/");
+      const { list } = await response.json();
+      dispatch({
+        type: FETCH_EMAIL_LIST_RESPONSE,
+        emailList: list,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +70,7 @@ export function fetchEmailList() {
 }
 
 export function toggleFavoriteEmail(email) {
-  sessionStorage.setItem(
+  localStorage.setItem(
     `emailDetails-${email.id}`,
     JSON.stringify({
       ...email,
