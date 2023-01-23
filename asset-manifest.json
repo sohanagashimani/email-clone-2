@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/email-clone-2/static/css/main.ee416a13.css",
-    "main.js": "/email-clone-2/static/js/main.8a2300da.js",
+    "main.css": "/email-clone-2/static/css/main.132d9a25.css",
+    "main.js": "/email-clone-2/static/js/main.c6c5dad4.js",
     "index.html": "/email-clone-2/index.html",
-    "main.ee416a13.css.map": "/email-clone-2/static/css/main.ee416a13.css.map",
-    "main.8a2300da.js.map": "/email-clone-2/static/js/main.8a2300da.js.map"
+    "main.132d9a25.css.map": "/email-clone-2/static/css/main.132d9a25.css.map",
+    "main.c6c5dad4.js.map": "/email-clone-2/static/js/main.c6c5dad4.js.map"
   },
   "entrypoints": [
-    "static/css/main.ee416a13.css",
-    "static/js/main.8a2300da.js"
+    "static/css/main.132d9a25.css",
+    "static/js/main.c6c5dad4.js"
   ]
 }
