@@ -14,7 +14,7 @@ body {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #B2BEB5 #dfe9eb;
+  scrollbar-color: #b2beb5 #dfe9eb;
 }
 
 /* Chrome, Edge and Safari */
@@ -37,7 +37,7 @@ body {
 
 *::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: #B2BEB5;
+  background-color: #b2beb5;
 }
 
 *::-webkit-scrollbar-thumb:hover {
@@ -45,7 +45,37 @@ body {
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background-color: #B2BEB5;
+  background-color: #b2beb5;
+}
+:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
+  .ant-pagination-item-active
+  a {
+  color: #e54065;
+}
+:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
+  .ant-pagination-item-active:hover
+  a {
+  color: #e54065;
+}
+
+:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
+  .ant-pagination-item-active {
+  font-weight: 600;
+  background-color: #ffffff;
+  border-color: #e54065;
+}
+:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
+  .ant-pagination-item-active:hover {
+  font-weight: 600;
+  background-color: #ffffff;
+  border-color: #e54065;
+}
+
+:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
+  .ant-pagination-item-active {
+  font-weight: 600;
+  background-color: #ffffff;
+  border-color: #e54065;
 }
 
 code {

@@ -16,7 +16,6 @@ const Header = ({
         onClick={() => {
           handleFilterChange("showUnreadEmails");
           setShowEmailDetails(false);
-          dispatch(setSelectedEmail(null));
         }}
       />
       <FilterTab
@@ -25,7 +24,6 @@ const Header = ({
         onClick={() => {
           handleFilterChange("showReadEmails");
           setShowEmailDetails(false);
-          dispatch(setSelectedEmail(null));
         }}
       />
       <FilterTab
@@ -34,7 +32,6 @@ const Header = ({
         onClick={() => {
           handleFilterChange("showFavorites");
           setShowEmailDetails(false);
-          dispatch(setSelectedEmail(null));
         }}
       />
     </nav>

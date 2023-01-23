@@ -1,4 +1,3 @@
-import { isNil } from "ramda";
 import {
   TOGGLE_FAVORITE_EMAIL,
   SET_SELECTED_EMAIL_REQUEST,
@@ -13,37 +12,28 @@ export const setSelectedEmail = (email) => {
       dispatch({
         type: SET_SELECTED_EMAIL_REQUEST,
       });
-      if (isNil(email)) {
+
+      // Check if email details is already stored in localStorage
+      let emailDetails = localStorage.getItem(`emailDetails-${email.id}`);
+      if (emailDetails) {
+        // If email details is stored, parse it to JSON and dispatch
+        emailDetails = JSON.parse(emailDetails);
+        dispatch({
+          type: SET_SELECTED_EMAIL_RESPONSE,
+          email: emailDetails,
+        });
+      } else {
+        const response = await fetch(
+          `https://flipkart-email-mock.now.sh/?id=${email.id}`
+        );
+        const { body } = await response.json();
+        email.body = body;
+        // Store email details in localStorage
+        localStorage.setItem(`emailDetails-${email.id}`, JSON.stringify(email));
         dispatch({
           type: SET_SELECTED_EMAIL_RESPONSE,
           email,
         });
-      } else {
-        // Check if email details is already stored in localStorage
-        let emailDetails = localStorage.getItem(`emailDetails-${email.id}`);
-        if (emailDetails) {
-          // If email details is stored, parse it to JSON and dispatch
-          emailDetails = JSON.parse(emailDetails);
-          dispatch({
-            type: SET_SELECTED_EMAIL_RESPONSE,
-            email: emailDetails,
-          });
-        } else {
-          const response = await fetch(
-            `https://flipkart-email-mock.now.sh/?id=${email.id}`
-          );
-          const { body } = await response.json();
-          email.body = body;
-          // Store email details in localStorage
-          localStorage.setItem(
-            `emailDetails-${email.id}`,
-            JSON.stringify(email)
-          );
-          dispatch({
-            type: SET_SELECTED_EMAIL_RESPONSE,
-            email,
-          });
-        }
       }
     } catch (error) {
       console.log(error);
@@ -51,13 +41,15 @@ export const setSelectedEmail = (email) => {
   };
 };
 
-export function fetchEmailList() {
+export function fetchEmailList(page = 1) {
   return async (dispatch) => {
     try {
       dispatch({
         type: FETCH_EMAIL_LIST_REQUEST,
       });
-      const response = await fetch("https://flipkart-email-mock.now.sh/");
+      const response = await fetch(
+        `https://flipkart-email-mock.now.sh/?page=${page}`
+      );
       const { list } = await response.json();
       dispatch({
         type: FETCH_EMAIL_LIST_RESPONSE,

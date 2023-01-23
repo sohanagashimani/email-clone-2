@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Pagination } from "antd";
 import parse from "html-react-parser";
 import DOMPurify from "dompurify";
 import {
@@ -18,15 +18,17 @@ import { FETCH_EMAIL_LIST_RESPONSE } from "./emailList.actionTypes";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
   const [showEmailDetails, setShowEmailDetails] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const { selectedEmail, emailList, isFetching, isFetchingDetails } =
     useSelector((state) => state);
   const dispatch = useDispatch();
+  const itemsPerPage = 7;
 
   const persistedState = localStorage.getItem("emailList");
   useEffect(() => {
     if (persistedState === null) {
       let ignore = false;
-      if (!ignore) dispatch(fetchEmailList());
+      if (!ignore) dispatch(fetchEmailList(currentPage));
       return () => {
         ignore = true;
       };
@@ -77,28 +79,50 @@ export default () => {
             </div>
           </When>
           <When isTrue={!isEmpty(filteredEmails)}>
+            <Pagination
+              current={currentPage}
+              total={filteredEmails?.length}
+              // showTotal={(total) =>
+              //   ` ${
+              //     filteredEmails?.slice(
+              //       (currentPage - 1) * itemsPerPage,
+              //       currentPage * itemsPerPage
+              //     ).length
+              //   } items`
+              // }
+              pageSize={itemsPerPage}
+              onChange={(page) => {
+                setCurrentPage(page);
+                setShowEmailDetails(false);
+              }}
+              className="mx-auto"
+            />
             <div className="flex text-[#636363]">
               <div
                 className={`${
                   showEmailDetails
-                    ? "w-2/6 h-screen overflow-y-scroll pr-6"
+                    ? "w-2/6 h-screen overflow-y-auto pr-6"
                     : "w-full h-full"
-                } 
-               `}
+                }`}
               >
-                {filteredEmails?.map((email) => (
-                  <EmailListItem
-                    key={email.id}
-                    {...{
-                      email,
-                      setSelectedEmail,
-                      dispatch,
-                      selectedEmail,
-                      setShowEmailDetails,
-                      filter,
-                    }}
-                  />
-                ))}
+                {filteredEmails
+                  ?.slice(
+                    (currentPage - 1) * itemsPerPage,
+                    currentPage * itemsPerPage
+                  )
+                  .map((email) => (
+                    <EmailListItem
+                      key={email.id}
+                      {...{
+                        email,
+                        setSelectedEmail,
+                        dispatch,
+                        selectedEmail,
+                        setShowEmailDetails,
+                        filter,
+                      }}
+                    />
+                  ))}
               </div>
               <When isTrue={showEmailDetails}>
                 <When isTrue={isFetchingDetails}>
@@ -109,7 +133,7 @@ export default () => {
                   </div>
                 </When>
                 <When isTrue={!isFetchingDetails}>
-                  <div className="w-4/6 h-max">
+                  <div className="w-4/6 h-full">
                     <EmailDetails
                       {...{
                         selectedEmail,
