@@ -14,7 +14,7 @@ This is an email list application built using React and Redux. The project aims 
 - Custom hooks for filtering and pagination
 - Reusable components for email list item and email details
 - Higher order components for handling loading states
-- Well organized code structure for code modularity and maintainability
+- Well organized folder structure for better code maintainability
 
 ## Tech Stack
 
