@@ -75,7 +75,11 @@ export default () => {
             <Pagination
               current={currentPage}
               total={filteredEmails?.length}
-              disabled={filter.showFavorites || filter.showUnreadEmails}
+              disabled={
+                filter.showFavorites ||
+                filter.showUnreadEmails ||
+                filter.showReadEmails
+              }
               // showTotal={() => ` ${filteredEmails?.length} items`}
               defaultPageSize={9}
               onChange={(page) => {

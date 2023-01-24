@@ -22,9 +22,6 @@ This is an email list application built using React and Redux. The project aims 
 - Redux
 - Ant Design
 - TailwindCSS
-- DOMPurify
-- html-react-parser
-- ramda
 
 ## Approach
 
