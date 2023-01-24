@@ -13,9 +13,7 @@ const EmailListItem = ({
     <div
       key={email.id}
       className={`p-3 my-6 rounded-lg border border-[#cfd2dc] ${
-        email.id === selectedEmail?.id
-          ? "border-[#E54065] "
-          : "border-[#cfd2dc]"
+        email.id === selectedEmail?.id ? "border-[#e54065]" : "border-[#cfd2dc]"
       }  ${
         filter.showUnreadEmails
           ? email.isRead

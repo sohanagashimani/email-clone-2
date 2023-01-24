@@ -3,6 +3,7 @@ import { updateEmailList } from "../../@utils";
 import {
   FETCH_EMAIL_LIST_REQUEST,
   FETCH_EMAIL_LIST_RESPONSE,
+  RESET_SELECTED_EMAIL,
   SET_SELECTED_EMAIL_REQUEST,
   SET_SELECTED_EMAIL_RESPONSE,
   TOGGLE_FAVORITE_EMAIL,
@@ -13,6 +14,7 @@ const initialState = {
   selectedEmail: null,
   isFetching: false,
   isFetchingDetails: false,
+  currentPage: 1,
 };
 
 function rootReducer(state = initialState, action) {
@@ -27,6 +29,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         isFetching: false,
         emailList: action.emailList,
+        currentPage: action.currentPage,
       };
     case SET_SELECTED_EMAIL_REQUEST:
       return {
@@ -50,6 +53,12 @@ function rootReducer(state = initialState, action) {
         false,
         state.isFetching
       );
+    case RESET_SELECTED_EMAIL:
+      return {
+        ...state,
+        selectedEmail: action.email,
+        isFetchingDetails: false,
+      };
 
     case TOGGLE_FAVORITE_EMAIL:
       return updateEmailList(

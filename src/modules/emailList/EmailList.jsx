@@ -13,7 +13,7 @@ import { EmailDetails, EmailListItem, Header } from "./components";
 import { useFilter, useFilteredEmails } from "../../@hooks";
 import { Empty } from "antd";
 import { isEmpty } from "ramda";
-import { FETCH_EMAIL_LIST_RESPONSE } from "./emailList.actionTypes";
+import { isInLocalStorage } from "../../@utils";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
@@ -22,25 +22,18 @@ export default () => {
   const { selectedEmail, emailList, isFetching, isFetchingDetails } =
     useSelector((state) => state);
   const dispatch = useDispatch();
-  const itemsPerPage = 7;
 
-  const persistedState = localStorage.getItem("emailList");
+  const currentPageEmails = isInLocalStorage(currentPage);
   useEffect(() => {
-    if (persistedState === null) {
-      let ignore = false;
+    let ignore = false;
+    if (!currentPageEmails) {
       if (!ignore) dispatch(fetchEmailList(currentPage));
-      return () => {
-        ignore = true;
-      };
-    } else {
-      const emailList = JSON.parse(persistedState);
-      dispatch({
-        type: FETCH_EMAIL_LIST_RESPONSE,
-        emailList,
-      });
     }
+    return () => {
+      ignore = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [dispatch, currentPage]);
 
   const htmlFrom = (htmlString) => {
     const cleanHtmlString = DOMPurify.sanitize(htmlString, {
@@ -51,7 +44,7 @@ export default () => {
   };
 
   const { filter, handleFilterChange } = useFilter();
-  const filteredEmails = useFilteredEmails(emailList, filter);
+  const filteredEmails = useFilteredEmails(emailList, filter, currentPage);
 
   return (
     <>
@@ -64,39 +57,37 @@ export default () => {
       </When>
       <When isTrue={!isFetching}>
         <div className="flex flex-col px-6 py-4 h-screen">
-          <Header
-            {...{
-              filter,
-              setShowEmailDetails,
-              handleFilterChange,
-              dispatch,
-              setSelectedEmail,
-            }}
-          />
+          <div className="flex items-center">
+            <Header
+              {...{
+                filter,
+                setShowEmailDetails,
+                handleFilterChange,
+                dispatch,
+                setSelectedEmail,
+              }}
+            />
+            <Pagination
+              current={currentPage}
+              total={filteredEmails?.length}
+              disabled={filter.showFavorites || filter.showReadEmails}
+              // showTotal={() => ` ${filteredEmails?.length} items`}
+              defaultPageSize={9}
+              onChange={(page) => {
+                setCurrentPage(page);
+                setShowEmailDetails(false);
+                dispatch(setSelectedEmail(null));
+              }}
+              className="ml-auto"
+            />
+          </div>
+
           <When isTrue={isEmpty(filteredEmails)}>
             <div className="flex items-center justify-center h-full">
               <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
             </div>
           </When>
           <When isTrue={!isEmpty(filteredEmails)}>
-            <Pagination
-              current={currentPage}
-              total={filteredEmails?.length}
-              // showTotal={(total) =>
-              //   ` ${
-              //     filteredEmails?.slice(
-              //       (currentPage - 1) * itemsPerPage,
-              //       currentPage * itemsPerPage
-              //     ).length
-              //   } items`
-              // }
-              pageSize={itemsPerPage}
-              onChange={(page) => {
-                setCurrentPage(page);
-                setShowEmailDetails(false);
-              }}
-              className="mx-auto"
-            />
             <div className="flex text-[#636363]">
               <div
                 className={`${
@@ -105,24 +96,19 @@ export default () => {
                     : "w-full h-full"
                 }`}
               >
-                {filteredEmails
-                  ?.slice(
-                    (currentPage - 1) * itemsPerPage,
-                    currentPage * itemsPerPage
-                  )
-                  .map((email) => (
-                    <EmailListItem
-                      key={email.id}
-                      {...{
-                        email,
-                        setSelectedEmail,
-                        dispatch,
-                        selectedEmail,
-                        setShowEmailDetails,
-                        filter,
-                      }}
-                    />
-                  ))}
+                {filteredEmails?.map((email) => (
+                  <EmailListItem
+                    key={email.id}
+                    {...{
+                      email,
+                      setSelectedEmail,
+                      dispatch,
+                      selectedEmail,
+                      setShowEmailDetails,
+                      filter,
+                    }}
+                  />
+                ))}
               </div>
               <When isTrue={showEmailDetails}>
                 <When isTrue={isFetchingDetails}>

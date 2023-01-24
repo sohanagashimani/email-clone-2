@@ -47,34 +47,36 @@ body {
 *::-webkit-scrollbar-thumb:active {
   background-color: #b2beb5;
 }
-:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
-  .ant-pagination-item-active
-  a {
+.ant-pagination .ant-pagination-item-active a {
   color: #e54065;
 }
-:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
-  .ant-pagination-item-active:hover
-  a {
+.ant-pagination .ant-pagination-item-active:hover a {
   color: #e54065;
 }
-
-:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
-  .ant-pagination-item-active {
-  font-weight: 600;
-  background-color: #ffffff;
-  border-color: #e54065;
+.ant-pagination.ant-pagination-disabled .ant-pagination-item-active a {
+  color: rgba(0, 0, 0, 0.25) !important;
 }
-:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
-  .ant-pagination-item-active:hover {
+.ant-pagination .ant-pagination-item-active {
   font-weight: 600;
-  background-color: #ffffff;
+  background-color: #fafafa;
   border-color: #e54065;
+  
+}
+.ant-pagination .ant-pagination-item-active:hover {
+  font-weight: 600;
+  background-color: #fafafa;
+  border-color: #e54065;
+  border-width: 1.5pt;
 }
 
-:where(.css-dev-only-do-not-override-1n7nwfa).ant-pagination
-  .ant-pagination-item-active {
+.ant-pagination.ant-pagination-disabled .ant-pagination-item-active {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.ant-pagination .ant-pagination-item-active {
   font-weight: 600;
-  background-color: #ffffff;
+  background-color: #fafafa;
   border-color: #e54065;
 }
 
