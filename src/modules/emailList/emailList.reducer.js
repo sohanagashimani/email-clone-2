@@ -17,7 +17,7 @@ const initialState = {
   currentPage: 1,
 };
 
-function rootReducer(state = initialState, action) {
+export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_EMAIL_LIST_REQUEST:
       return {
@@ -73,6 +73,6 @@ function rootReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export default rootReducer;

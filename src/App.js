@@ -1,11 +1,11 @@
 import { EmailList } from "./modules";
 
-function App() {
+export const App = () => {
   return (
     <div className="App">
       <EmailList />
     </div>
   );
-}
+};
 
 export default App;

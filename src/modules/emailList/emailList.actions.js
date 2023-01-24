@@ -48,7 +48,7 @@ export const setSelectedEmail = (email) => {
   };
 };
 
-export function fetchEmailList(page = 1) {
+export const fetchEmailList = (page = 1) => {
   return async (dispatch) => {
     try {
       dispatch({
@@ -80,9 +80,9 @@ export function fetchEmailList(page = 1) {
       console.log(error);
     }
   };
-}
+};
 
-export function toggleFavoriteEmail(email) {
+export const toggleFavoriteEmail = (email) => {
   localStorage.setItem(
     `emailDetails-${email.id}`,
     JSON.stringify({
@@ -94,4 +94,4 @@ export function toggleFavoriteEmail(email) {
     type: TOGGLE_FAVORITE_EMAIL,
     email,
   };
-}
+};
