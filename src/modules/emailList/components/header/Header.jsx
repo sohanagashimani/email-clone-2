@@ -11,10 +11,10 @@ const Header = ({
     <nav className="flex items-center gap-4 py-2 font-normal">
       <p>Filter by: </p>
       <FilterTab
-        text="Unread"
-        isActive={filter.showUnreadEmails}
+        text="All"
+        isActive={filter.showAllEmails}
         onClick={() => {
-          handleFilterChange("showUnreadEmails");
+          handleFilterChange("showAllEmails");
           setShowEmailDetails(false);
           dispatch(setSelectedEmail(null));
         }}
@@ -24,6 +24,15 @@ const Header = ({
         isActive={filter.showReadEmails}
         onClick={() => {
           handleFilterChange("showReadEmails");
+          setShowEmailDetails(false);
+          dispatch(setSelectedEmail(null));
+        }}
+      />
+      <FilterTab
+        text="Unread"
+        isActive={filter.showUnreadEmails}
+        onClick={() => {
+          handleFilterChange("showUnreadEmails");
           setShowEmailDetails(false);
           dispatch(setSelectedEmail(null));
         }}

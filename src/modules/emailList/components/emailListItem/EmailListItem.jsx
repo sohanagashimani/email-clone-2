@@ -15,7 +15,7 @@ const EmailListItem = ({
         className={`p-3 my-6 rounded-lg border border-[#cfd2dc] hover:bg-gray-200 ${
         email.id === selectedEmail?.id ? "border-[#e54065]" : "border-[#cfd2dc]"
       }  ${
-        filter.showUnreadEmails
+        filter.showAllEmails
           ? email.isRead
             ? "bg-[#f2f2f2]"
             : "bg-white"

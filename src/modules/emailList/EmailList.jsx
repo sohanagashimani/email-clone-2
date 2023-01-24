@@ -44,7 +44,12 @@ export default () => {
   };
 
   const { filter, handleFilterChange } = useFilter();
-  const filteredEmails = useFilteredEmails(emailList, filter, currentPage);
+  const filteredEmails = useFilteredEmails(
+    emailList,
+    filter,
+    currentPage,
+    selectedEmail
+  );
 
   return (
     <>
@@ -70,7 +75,7 @@ export default () => {
             <Pagination
               current={currentPage}
               total={filteredEmails?.length}
-              disabled={filter.showFavorites || filter.showReadEmails}
+              disabled={filter.showFavorites || filter.showUnreadEmails}
               // showTotal={() => ` ${filteredEmails?.length} items`}
               defaultPageSize={9}
               onChange={(page) => {

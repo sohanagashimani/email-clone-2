@@ -3,9 +3,10 @@ import { useState } from "react";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
   const [filter, setFilter] = useState({
-    showFavorites: false,
     showReadEmails: false,
-    showUnreadEmails: true,
+    showUnreadEmails: false,
+    showFavorites: false,
+    showAllEmails: true,
   });
 
   const handleFilterChange = (key) => {
