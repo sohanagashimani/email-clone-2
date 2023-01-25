@@ -23,16 +23,14 @@ export default () => {
     useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const currentPageEmails = isInLocalStorage(currentPage);
   useEffect(() => {
     let ignore = false;
-    if (!currentPageEmails) {
+    if (!isInLocalStorage(currentPage)) {
       if (!ignore) dispatch(fetchEmailList(currentPage));
     }
     return () => {
       ignore = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, currentPage]);
 
   const htmlFrom = (htmlString) => {
