@@ -1,5 +1,5 @@
 import React from "react";
-import { UserIcon } from "../../../../@components";
+import { DateAndTime, UserIcon } from "../../../../@components";
 
 const EmailListItem = ({
   email,
@@ -46,14 +46,7 @@ const EmailListItem = ({
             {email.short_description}
           </p>
           <p className="text-xs text-gray-600 leading-loose">
-            {new Date(email.date).toLocaleDateString()}
-            <span className="ml-1">
-              {" "}
-              {new Date(email.date).toLocaleTimeString("en-US", {
-                hour: "numeric",
-                minute: "numeric",
-              })}
-            </span>
+            <DateAndTime email={email} />
             <span className="ml-7 font-bold text-[#e54065]">
               {email.isFavorite ? "Favorite" : null}
             </span>

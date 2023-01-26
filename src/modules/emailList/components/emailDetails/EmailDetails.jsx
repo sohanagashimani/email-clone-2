@@ -1,5 +1,5 @@
 import React from "react";
-import { UserIcon } from "../../../../@components";
+import { DateAndTime, UserIcon } from "../../../../@components";
 
 const EmailDetails = ({
   selectedEmail,
@@ -19,13 +19,7 @@ const EmailDetails = ({
           <div className="flex flex-col space-y-2">
             <p className="text-lg font-medium">{selectedEmail?.subject}</p>
             <p className="text-xs text-gray-600 leading-loose">
-              {new Date(selectedEmail.date).toLocaleDateString()}
-              <span className="ml-2">
-                {new Date(selectedEmail.date).toLocaleTimeString("en-US", {
-                  hour: "numeric",
-                  minute: "numeric",
-                })}
-              </span>
+              <DateAndTime email={selectedEmail} />
             </p>
           </div>
           <button
