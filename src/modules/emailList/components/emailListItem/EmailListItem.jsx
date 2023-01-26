@@ -6,14 +6,17 @@ const EmailListItem = ({
   setSelectedEmail,
   dispatch,
   selectedEmail,
+  showEmailDetails,
   setShowEmailDetails,
   filter,
 }) => {
   return (
     <div
       key={email.id}
-        className={`p-3 my-6 rounded-lg border border-[#cfd2dc] hover:bg-gray-200 ${
-        email.id === selectedEmail?.id ? "border-[#e54065]" : "border-[#cfd2dc]"
+      className={`p-3 my-6 rounded-lg border border-[#cfd2dc] hover:bg-gray-200 ${
+        email.id === selectedEmail?.id && showEmailDetails
+          ? "border-[#e54065]"
+          : "border-[#cfd2dc]"
       }  ${
         filter.showAllEmails
           ? email.isRead

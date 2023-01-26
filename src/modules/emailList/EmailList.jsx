@@ -111,6 +111,7 @@ export default () => {
                       setSelectedEmail,
                       dispatch,
                       selectedEmail,
+                      showEmailDetails,
                       setShowEmailDetails,
                       filter,
                     }}
