@@ -8,7 +8,7 @@ const Header = ({
   dispatch,
 }) => {
   return (
-    <nav className="flex items-center gap-4 py-2 font-normal">
+    <nav className="flex items-center gap-4 py-2 font-normal h-10">
       <p>Filter by: </p>
       <FilterTab
         text="All"
