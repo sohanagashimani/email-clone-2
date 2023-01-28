@@ -60,7 +60,7 @@ export default () => {
       </When>
       <When isTrue={!isFetching}>
         <div className="flex flex-col px-6 py-4 h-screen">
-          <div className="flex items-center">
+          <div className="flex items-center mb-2">
             <Header
               {...{
                 filter,
@@ -99,7 +99,7 @@ export default () => {
               <div
                 className={`${
                   showEmailDetails
-                    ? "w-2/6 h-[calc(100vh-3.5rem)] overflow-y-auto pr-6"
+                    ? "w-2/6 h-[calc(100vh-4rem)] overflow-y-auto pr-6"
                     : "w-full h-full"
                 }`}
               >
@@ -127,7 +127,7 @@ export default () => {
                   </div>
                 </When>
                 <When isTrue={!isFetchingDetails}>
-                  <div className="w-4/6 h-[calc(100vh-3.5rem)]">
+                  <div className="w-4/6 h-[calc(100vh-4rem)]">
                     <EmailDetails
                       {...{
                         selectedEmail,
